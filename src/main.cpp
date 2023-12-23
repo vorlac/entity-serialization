@@ -19,7 +19,6 @@ int main(int argc, char** argv)
         entities_a,
         entities_b,
     };
-    // serializer.serialize();
-    // serializer.deserialize();
+
     return 0;
 }
