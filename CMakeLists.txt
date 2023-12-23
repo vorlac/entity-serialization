@@ -24,7 +24,7 @@ project(myprogram
 option(
   AUTOFORMAT_SRC_ON_CONFIGURE
     "If enabled, clang-format will be used to format all sources in src/ during configuration"
-      OFF # ON
+      ON
 )
 
 string(TOLOWER "${CMAKE_SYSTEM_NAME}" host_os)
@@ -37,7 +37,6 @@ set(compiler_is_gnu "$<CXX_COMPILER_ID:GNU>")
 set(compiler_is_clang "$<OR:$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:Clang>>")
 
 find_package(fmt CONFIG REQUIRED)
-find_package(OpenSSL REQUIRED)
 
 file(GLOB_RECURSE
   project_sources
@@ -98,8 +97,6 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE fmt::fmt
-  PRIVATE OpenSSL::SSL
-  PRIVATE OpenSSL::Crypto
 )
 
 if (AUTOFORMAT_SRC_ON_CONFIGURE MATCHES ON)

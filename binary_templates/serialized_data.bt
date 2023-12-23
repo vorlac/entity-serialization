@@ -1,0 +1,42 @@
+
+typedef struct 
+{
+    float x;
+    float y;
+} Coordinates;    
+     
+typedef struct
+{
+    uint32 count;
+    uint32 size;
+    char name[32];
+} EntityPropertiesHeader;
+     
+typedef struct 
+{
+    uchar id;
+    uchar health;
+    uint64 namelen;
+    char name[ namelen ];
+} ObjectA;
+
+typedef struct
+{
+    uint32 id;    
+    Coordinates pos; 
+} ObjectB;
+
+uint64 HeaderCount <bgcolor=cLtYellow>; 
+EntityPropertiesHeader headers[HeaderCount] <bgcolor=cLtBlue>;
+
+local int i = 0;
+for (i = 0; i < HeaderCount; i++) 
+{
+    if (i == 0) {
+        ObjectA a_entities[headers[i].count] <bgcolor=cLtGreen, optimize=false>;
+    }
+    if (i == 1) {
+        ObjectB b_entities[headers[i].count] <bgcolor=cLtRed, optimize=false>;
+    }
+}
+

@@ -1,25 +1,25 @@
-#include <cstdint>
-#include <iostream>
-#include <string_view>
-
-#include <fmt/color.h>
 #include <fmt/format.h>
-#include <fmt/std.h>
-#include <openssl/crypto.h>
+
+#include "entity_serializer.hpp"
 
 int main(int argc, char** argv)
 {
-    constexpr std::string_view hi{ "hello world" };
-    fmt::print(fmt::emphasis::blink | fmt::fg(fmt::color::coral), "{}\n", hi);
+    auto entities_a = std::vector<ObjectA>{
+        { .id = 1, .health = 100, .name = "long variable length name" },
+        { .id = 55, .health = 19, .name = "shorter varlen name" }
+    };
 
-    const uint32_t ssl_major{ OPENSSL_version_major() };
-    const uint32_t ssl_minor{ OPENSSL_version_minor() };
-    const uint32_t ssl_patch{ OPENSSL_version_patch() };
+    auto entities_b = std::vector<ObjectB>{
+        { .id = 11, .pos = { .x = 100.0f, .y = 0.1f } },
+        { .id = 22, .pos = { .x = 1.0f, .y = 12345.6f } },
+        { .id = 33, .pos = { .x = 666.6f, .y = 666.6f } },
+    };
 
-    fmt::print(fmt::emphasis::underline | fmt::fg(fmt::color::beige),
-               "Using OpenSSL Version: {}.{}.{}\n", ssl_major, ssl_minor, ssl_patch);
-
-    std::cin.get();
-
+    EntitySerializer serializer{
+        entities_a,
+        entities_b,
+    };
+    // serializer.serialize();
+    // serializer.deserialize();
     return 0;
 }
